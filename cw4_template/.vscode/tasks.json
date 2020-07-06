@@ -4,7 +4,7 @@
     "version": "2.0.0",
     "options": {
       "env": {
-        "nrf52SDKPath": "${workspaceFolder}/../../../../..",
+        "nrf52SDKPath": "${workspaceFolder}/../../../",
         "userName": "root",
         "group": "01"
       }
@@ -35,7 +35,7 @@
       {
         "label": "flashNordic",
         "type": "shell",
-        "command": "scp -P 120${group} pca10059/s140/armgcc/_build/nrf52840_xxaa.hex ${userName}@153.19.49.102:/var/tmp && ssh -p 120${group} ${userName}@153.19.49.102 curl http://192.168.50.238:3001/resetNRF52v2/${group} && nrfutil pkg generate --hw-version 52 --sd-req 0x00 --debug-mode --application /var/tmp/*.hex /var/tmp/dfu.zip && nrfutil dfu usb_serial -pkg /var/tmp/dfu.zip -p /dev/ttyACM0 -b 115200 && rm /var/tmp/*.hex",
+        "command": "scp -P 120${group} pca10059/s140/armgcc/_build/nrf52840_xxaa.hex ${userName}@153.19.49.102:/var/tmp && ssh -p 120${group} ${userName}@153.19.49.102 'curl http://153.19.49.102:3001/resetNRF52v2/${group} && nrfutil pkg generate --hw-version 52 --sd-req 0x00 --debug-mode --application /var/tmp/*.hex /var/tmp/dfu.zip && nrfutil dfu usb-serial -pkg /var/tmp/dfu.zip -p /dev/ttyACM0 -b 115200 && rm /var/tmp/*.hex'",
         "presentation": 
         {
           "reveal": "always",
@@ -46,7 +46,7 @@
       {
         "label": "flashNordicSD",
         "type": "shell",
-        "command": "scp -P 120${group} pca10059/s140/armgcc/_build/nrf52840_xxaa.hex ${nrf52SDKPath}/components/softdevice/s140/hex/s140_nrf52_7.0.1_softdevice.hex ${userName}@153.19.50.238:/var/tmp && ssh -p 120${group} ${userName}@153.19.49.102 'curl http://192.168.49.102:3001/resetNRF52v2/${group} && nrfutil pkg generate --hw-version 52 --sd-req 0x00 --sd-id 0xCA --softdevice /var/tmp/s140_nrf52_7.0.1_softdevice.hex  --debug-mode --application /var/tmp/nrf52840_xxaa.hex /var/tmp/dfu.zip && nrfutil dfu usb_serial -pkg /var/tmp/dfu.zip -p /dev/ttyACM0 -b 115200 && rm /var/tmp/*.hex'",
+        "command": "scp -P 120${group} pca10059/s140/armgcc/_build/nrf52840_xxaa.hex ${nrf52SDKPath}/components/softdevice/s140/hex/s140_nrf52_7.0.1_softdevice.hex ${userName}@153.19.49.102:/var/tmp && ssh -p 120${group} ${userName}@153.19.49.102 'curl http://153.19.49.102:3001/resetNRF52v2/${group} && nrfutil pkg generate --hw-version 52 --sd-req 0x00 --sd-id 0xCA --softdevice /var/tmp/s140_nrf52_7.0.1_softdevice.hex  --debug-mode --application /var/tmp/nrf52840_xxaa.hex /var/tmp/dfu.zip && nrfutil dfu usb-serial -pkg /var/tmp/dfu.zip -p /dev/ttyACM0 -b 115200 && rm /var/tmp/*.hex'",
         "presentation": 
         {
           "reveal": "always",
@@ -60,7 +60,7 @@
         "options": {
           "cwd": "${workspaceFolder}/pca10056/s140/armgcc"
         },
-        "command": "make all ",
+        "command": "make all -j$(nproc)",
         "group": "build"
       },
       {
@@ -87,7 +87,7 @@
         "options": {
           "cwd": "${workspaceFolder}/pca10059/s140/armgcc"
         },
-        "command": "make all ",
+        "command": "make all -j$(nproc)",
         "group": {
           "kind": "build",
           "isDefault": true
@@ -147,7 +147,7 @@
       {
         "label": "windows: flashNordic",
         "type": "shell",
-        "command": "scp -P 120%group% pca10059/s140/armgcc/_build/nrf52840_xxaa.hex %userName%@153.19.49.102:/var/tmp && ssh -p 120%group% %userName%@153.19.49.102 curl http://192.168.50.238:3001/resetNRF52v2/%group% && nrfutil pkg generate --hw-version 52 --sd-req 0x00 --debug-mode --application /var/tmp/*.hex /var/tmp/dfu.zip && nrfutil dfu usb_serial -pkg /var/tmp/dfu.zip -p /dev/ttyACM0 -b 115200 && rm /var/tmp/*.hex",
+        "command": "scp -P 120%group% pca10059/s140/armgcc/_build/nrf52840_xxaa.hex %userName%@153.19.49.102:/var/tmp && ssh -p 120%group% %userName%@153.19.49.102 curl http://192.168.49.54:3001/resetNRF52v2/%group% && nrfutil pkg generate --hw-version 52 --sd-req 0x00 --debug-mode --application /var/tmp/*.hex /var/tmp/dfu.zip && nrfutil dfu usb_serial -pkg /var/tmp/dfu.zip -p /dev/ttyACM0 -b 115200 && rm /var/tmp/*.hex",
         "presentation": 
         {
           "reveal": "always",
@@ -158,7 +158,7 @@
       {
         "label": "windows: flashNordicSD",
         "type": "shell",
-        "command": "scp -P 120%group% pca10059/s140/armgcc/_build/nrf52840_xxaa.hex %nrf52SDKPath%/components/softdevice/s140/hex/s140_nrf52_7.0.1_softdevice.hex %userName%@153.19.49.102:/var/tmp && ssh -p 120%group% %userName%@153.19.49.102 'curl http://192.168.50.238:3001/resetNRF52v2/%group% && nrfutil pkg generate --hw-version 52 --sd-req 0x00 --sd-id 0xCA --softdevice /var/tmp/s140_nrf52_7.0.1_softdevice.hex  --debug-mode --application /var/tmp/nrf52840_xxaa.hex /var/tmp/dfu.zip && nrfutil dfu usb_serial -pkg /var/tmp/dfu.zip -p /dev/ttyACM0 -b 115200 && rm /var/tmp/*.hex'",
+        "command": "scp -P 120%group% pca10059/s140/armgcc/_build/nrf52840_xxaa.hex %nrf52SDKPath%/components/softdevice/s140/hex/s140_nrf52_7.0.1_softdevice.hex %userName%@153.19.49.102:/var/tmp && ssh -p 120%group% %userName%@153.19.49.102 'curl http://192.168.49.54:3001/resetNRF52v2/%group% && nrfutil pkg generate --hw-version 52 --sd-req 0x00 --sd-id 0xCA --softdevice /var/tmp/s140_nrf52_7.0.1_softdevice.hex  --debug-mode --application /var/tmp/nrf52840_xxaa.hex /var/tmp/dfu.zip && nrfutil dfu usb_serial -pkg /var/tmp/dfu.zip -p /dev/ttyACM0 -b 115200 && rm /var/tmp/*.hex'",
         "presentation": 
         {
           "reveal": "always",
@@ -172,7 +172,7 @@
         "options": {
           "cwd": "${workspaceFolder}/pca10056/s140/armgcc"
         },
-        "command": "make all ",
+        "command": "make all -j$(nproc)",
         "group": "build"
       },
       {
@@ -199,7 +199,7 @@
         "options": {
           "cwd": "${workspaceFolder}/pca10059/s140/armgcc"
         },
-        "command": "make all ",
+        "command": "make all -j$(nproc)",
         "group": {
           "kind": "build",
           "isDefault": true
