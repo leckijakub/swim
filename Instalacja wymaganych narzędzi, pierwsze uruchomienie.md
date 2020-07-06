@@ -76,7 +76,7 @@ sudo apt install ./code_1.45.1-1589445302_amd64.deb
 Sklonuj repozytorium z szablonami ćwiczeń na laborkę do folderu `examples` w SDK:
 
 ```
-git clone xxx
+git clone https://git.pg.edu.pl/p828385/laboratorium_swim/
 ```
 
 ##### Ustawienie odpowiednich ścieżek w c_cpp_properties.json
