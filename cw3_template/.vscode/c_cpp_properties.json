@@ -1,0 +1,59 @@
+{
+    "env": {
+        "nrf52SDKPath": "${workspaceFolder}/../../../../..",
+        "nrf52IncludePath": [
+            "${workspaceFolder}/**",
+            "${nrf52SDKPath}/**",
+            "${nrf52SDKPath}/external/freertos/portable/GCC",
+            "${nrf52SDKPath}//nRF5_SDK_16.0/external/freertos/portable/GCC/nrf52",
+            "${nrf52SDKPath}/nRF5_SDK_16.0/external/freertos/portable/CMSIS/nrf52"
+        ],
+        "armCompilerPath": "/usr/local/bin/gcc-arm-none-eabi-7-2018-q2-update/bin/arm-none-eabi-gcc"
+    },
+    "configurations": [
+        {
+            "name": "PCA10056",
+            "includePath": [
+                "${nrf52IncludePath}"
+            ],
+            "forcedInclude": [
+                "${workspaceFolder}/pca10056/blank/config/sdk_config.h"
+            ],
+            "defines": [
+                "DAPP_TIMER_V2",
+                "DAPP_TIMER_V2_RTC1_ENABLED",
+                "BOARD_PCA10056",
+                "CONFIG_GPIO_AS_PINRESET",
+                "FLOAT_ABI_HARD",
+                "NRF52840_XXAA"
+            ],
+            "compilerPath": "${armCompilerPath}",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "clang-x64"
+        },
+        {
+            "name": "PCA10059",
+            "includePath": [
+                "${nrf52IncludePath}"
+            ],
+            "forcedInclude": [
+                "${workspaceFolder}/pca10059/blank/config/sdk_config.h"
+            ],
+            "defines": [
+                "DAPP_TIMER_V2",
+                "DAPP_TIMER_V2_RTC1_ENABLED",
+                "BOARD_PCA10059",
+                "CONFIG_GPIO_AS_PINRESET",
+                "FLOAT_ABI_HARD",
+                "NRF52840_XXAA"
+            ],
+            "compilerPath": "${armCompilerPath}",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "gcc-arm"
+        }
+
+    ],
+    "version": 4
+}
