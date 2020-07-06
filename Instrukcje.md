@@ -153,9 +153,6 @@ img: https://www.vhv.rs/download/bwTwho_ground-electrical-hd-png-download/
 Programy konsolowe na PC są zazwyczaj uruchamiane w konsoli, gdzie widzimy tekstowe komunikaty pisane przez program Podobny interfejs możemy stworzyć z mikrokontrolerem używając portu szeregowego takiego jak USB czy UART. 
 
  
-Nasz interfejs jest niespójny i jest hujowy więc nie wiem co tu więcej napisać. 
-
- 
 
 ## Czujniki 
 
