@@ -127,7 +127,7 @@ Przykładowo, funkcja włączająca LED,  bsp_board_led_on, ma następującą im
  
 Timer jest podukładem odpowiedzialnym za mierzenie czasu.  
 
-W najprostszej postaci składa dsię z licznika, czyli rejestru inkrementującego swoją wartość z każdym impulsem zegara układu.  
+W najprostszej postaci składa się z licznika, czyli rejestru inkrementującego swoją wartość z każdym impulsem zegara układu.  
  
 Setup timera zazwyczaj polega na ustawianiu alarmów. Gdy licznik dojdzie do odpowiedniej liczby ustawionej przez alarm, zostaje wywołane przerwanie. 
  
@@ -173,7 +173,7 @@ Nrf52 zawiera wewnętrzny czujnik temperatury. Wartość jego odczytywana jest z
 
 ## Fototranzystor 
 
-Tranzystory są elementami elektronicznymi które przewodzą prąd warunkowo. Warunkiem otwarcia kanału i przepływu prądu między głównymi pinami tranzystora jest zazwyczaj wartość napięcia lub prądu na dodatkowym pinie zwanym bramką lub bazą (zależnie od rodzaju tranzystora). W przypadku fototranzystora zamiast dodatkowego pinu mamy czujnik światła. Im większe natężenie światła padające na czujnik, tym większą przewodność ma fototranzystor. Podłączając fototranzystor do mikrokontrolera możemy stworzyć prosty detektor światła, 
+Tranzystory są elementami elektronicznymi które przewodzą prąd warunkowo. Warunkiem otwarcia kanału i przepływu prądu między głównymi pinami tranzystora jest zazwyczaj wartość napięcia lub prądu na dodatkowym pinie zwanym bramką lub bazą (zależnie od rodzaju tranzystora). W przypadku fototranzystora zamiast dodatkowego pinu mamy czujnik światła. Im większe natężenie światła padające na czujnik, tym większą przewodność ma fototranzystor. Podłączając fototranzystor do mikrokontrolera możemy stworzyć prosty detektor światła. 
 
  <p align="center">
   <img   src="./instrukcje_img/fototrans.png" "Title"  width=200 >
@@ -195,9 +195,9 @@ img: https://www.vhv.rs/viewpic/iJxRhbb_free-vector-electronic-phototransistor-p
  
 W przypadku diody w lab1 API nrf52 zajęło się wszystkimi niskopoziomowymi problemami za nas, by zapalić diodę. Jeśli chcemy wysterować lub odczytać inny element musimy napisać sterownik samemu. Do tego możemy użyć znanego już GPIO lub ADC  (Analog-Digital Converter), korzystając z niskopoziomowego API tych modułów. 
 
-Podłączmy nasz fototranzystor podobnie jak diodę z lab1, lecz ustawmy GPIO w tryb wejścia. Wtedy zmiana stanu fotorezystora pod wpływem światła wznowi lub zatrzyma przepływ prądu. Jest do jednoznaczne z podłączeniem naszego pinu GPIO z napięciem 3.3V (gdy tranzystor przewodzi - tworzy połączenie między swoimi pinami), lub odłączeniem go od tego zasilania (gdy tranzystor nie przewodzi). Innymi słowy fototranzystor staje się swego rodzaju przełącznikiem. Za pomocą API GPIO jesteśmy w stanie odczytać wartość na pinie GPIO w naszej aplikacji jako jedynkę lub zero. 
+Podłączmy nasz fototranzystor podobnie jak diodę z lab1, lecz ustawmy GPIO w tryb wejścia. Wtedy zmiana stanu fototranzystora pod wpływem światła wznowi lub zatrzyma przepływ prądu. Jest do jednoznaczne z podłączeniem naszego pinu GPIO z napięciem 3.3V (gdy tranzystor przewodzi - tworzy połączenie między swoimi pinami), lub odłączeniem go od tego zasilania (gdy tranzystor nie przewodzi). Innymi słowy fototranzystor staje się swego rodzaju przełącznikiem. Za pomocą API GPIO jesteśmy w stanie odczytać wartość na pinie GPIO w naszej aplikacji jako jedynkę lub zero. 
  
-Problem jaki się tu pojawia to jednowątkowość naszego mikrokontrolera. Odczyt wartości GPIO jest instrukcją, linią w kodzie, więc jeśli chcielibyśmy  wykonać jakąś operację gdy zmieni się wartość natężenia światła musielibyśmy czytać tą wartość w pętli i czekać aż się zmieni (polling). Pilnowanie tej wartości i robienie innych operacji nie wchodzi wtedy  w grę. Na pomoc przychodzą nam przerwania - możemy ustawić je tak by zmiana wartości na pinie GPIO generowała przerwanie. Dzięki temu nasz program będzie mógł się zająć innymi operacjami podczas tego oczekiwania. 
+Problem jaki się tu pojawia to jednowątkowość naszego mikrokontrolera. Odczyt wartości GPIO jest instrukcją, linią w kodzie, więc jeśli chcielibyśmy  wykonać jakąś operację gdy zmieni się wartość natężenia światła musielibyśmy czytać tą wartość w pętli i czekać aż się zmieni (polling). Pilnowanie tej wartości i robienie innych operacji nie wchodzi wtedy w grę. Na pomoc przychodzą nam przerwania - możemy ustawić je tak by zmiana wartości na pinie GPIO generowała przerwanie. Dzięki temu nasz program będzie mógł się zająć innymi operacjami podczas tego oczekiwania. 
  
 ## Zadania 
  
@@ -226,7 +226,7 @@ Warto pamiętać, że wszystkie popularne standardy komunikacji bezprzewodowej (
 
 Podobnie jak protokół TCP/IP, BLE ma swój własny stos (rys.). Pisząc aplikacje oparte na BLE będziemy operować na dwóch warstwach stosu BLE: GAP i GATT.  
 
-Nrf52 implementuje stos ble jako osobny program zwany softdevice, który działa na osobnym dedykowanym rdzeniu. Aplikacja która korzysta z protokołu BLE, będzie komunikować się z softdevice za pomocą funkcji z przedrostkiem “sd_” np. sd_ble_gap_adv_start. 
+Nrf52 implementuje stos BLE jako osobny program zwany softdevice, który działa na osobnym dedykowanym rdzeniu. Aplikacja która korzysta z protokołu BLE, będzie komunikować się z softdevice za pomocą funkcji z przedrostkiem “sd_” np. sd_ble_gap_adv_start. 
 
  
  
@@ -282,7 +282,7 @@ img: https://infocenter.nordicsemi.com/index.jsp?topic=%2Fsds_s140%2FSDS%2Fs1xx%
 
 ## Zadania 
 
-BLE jest popularnym standardem komunikacji bezprzewodowej. Najprostszym urządzeniem BLE jest Beacon wykonujący Advertising. Advertising jest sposobem urządzeń BLE na "przedstawienie" się nasłuchującym klientom. Projekt lab4 posiada już zaimplementowany advertising. Przetestuj go za pomocą aplikacji test.py którą znajdziesz bezpośrednio na urządzeniu zdalnym. Połączyć się do niego można przez SSH. (ssh -p [port] lab@[ip] ). O port i IP należy się spytać prowadzącego. Test włączamy poprzez (python3 task.py) w folderze pmk. Można to też osiągnąć przez task BLEtest w VSCcode.
+BLE jest popularnym standardem komunikacji bezprzewodowej. Najprostszym urządzeniem BLE jest Beacon wykonujący Advertising. Advertising jest sposobem urządzeń BLE na "przedstawienie" się nasłuchującym klientom. Projekt lab4 posiada już zaimplementowany advertising. Przetestuj go za pomocą aplikacji test.py którą znajdziesz bezpośrednio na urządzeniu zdalnym. Najłatwiej ją włączyć za pomocą  tasku BLEtest w VSCode.
 
 Advertising może być użyty również do przekazywania informacji. Ramka advertisingu posiada pole "manufacturer data", w którym można zawrzeć kilka bajtów informacji. Zawrzyj w tym polu wartość stanu czujnika oświetlenia (0 lub 1). Wartość ta ma się aktualizować za każdym razem gdy się zmieni się stan czujnika. W polu company_identifier wpisz 0x0059.
 
