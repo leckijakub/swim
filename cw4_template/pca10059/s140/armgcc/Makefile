@@ -2,7 +2,7 @@ PROJECT_NAME     := ble_app_blinky_pca10059_s140
 TARGETS          := nrf52840_xxaa
 OUTPUT_DIRECTORY := _build
 
-SDK_ROOT := /home/td/Desktop/KODY/sdk_nor/nRF5SDK160098a08e2
+SDK_ROOT :=../../../../../..
 PROJ_DIR := ../../..
 
 $(OUTPUT_DIRECTORY)/nrf52840_xxaa.out: \
