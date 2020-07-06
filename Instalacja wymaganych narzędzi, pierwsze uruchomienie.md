@@ -76,7 +76,7 @@ sudo apt install ./code_1.45.1-1589445302_amd64.deb
 Sklonuj repozytorium z szablonami ćwiczeń na laborkę do folderu `examples` w SDK:
 
 ```
-git clone xxx
+git clone https://git.pg.edu.pl/p828385/laboratorium_swim/
 ```
 
 ##### Ustawienie odpowiednich ścieżek w c_cpp_properties.json
@@ -100,6 +100,7 @@ Otwórz Visual Studio Code. Następnie wybierz File -> Open Folder i z pobranego
 Uwaga: jeśli sklonowałeś repozytorium do innego folderu niż `examples`, zmień ścieżkę `"nrf52SDKPath"` na ścieżkę, pod którą znajduje się folder SDK na twoim komputerze. 
 
 ##### Kompilacja i uruchomienie
+Przed rozpoczęciem wgrywania kodu na moduł ustaw zmienną "group" w tasks.json na numer odpowiedni dla swojej grupy (od 01 do 10).
 
 **Uwaga Windows**: konieczne jest ustawienie domyślnego shella na cmd, tak jak na gifie poniżej:
 
