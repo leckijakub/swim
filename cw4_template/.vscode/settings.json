@@ -4,10 +4,8 @@
     },
     "C_Cpp.clang_format_style": "file",
     "C_Cpp.clang_format_fallbackStyle": "none",
-    "editor.rulers": [
-      90
-    ],
-    "files.associations": {
-      "cstdint": "cpp"
-    },
+    "editor.rulers": [90],
+    "nrf52SDKPath": "${workspaceFolder}/../../../",
+    "userName": "root",
+    "group": "08"
   }
