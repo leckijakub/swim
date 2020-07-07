@@ -102,7 +102,7 @@ Uwaga: jeśli sklonowałeś repozytorium do innego folderu niż `examples`, zmie
 ##### Kompilacja i uruchomienie
 Przed rozpoczęciem wgrywania kodu na moduł ustaw zmienną "group" w tasks.json na numer odpowiedni dla swojej grupy (od 01 do 10).
 
-**Uwaga Windows**: konieczne jest ustawienie domyślnego shella na cmd, tak jak na gifie poniżej:
+**Uwaga Windows**: konieczne jest używanie tasków z dopiskiem "windows: " oraz ustawienie domyślnego shella na cmd, tak jak na gifie poniżej:
 
 ![Shell change](instrukcje_img/shell_change.gif "Zmiana domyslnego shella")
 
