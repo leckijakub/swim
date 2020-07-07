@@ -162,7 +162,7 @@ Nrf52 zawiera wewnętrzny czujnik temperatury. Wartość jego odczytywana jest z
  
 ## Zadania 
 
-​	W module nRF52840 Dongle można przesyłać dane do komputera poprzez interfejs USB. Wykrywany jest on w systemie jako wirtualny port szeregowy. Otwórz projekt `lab2`, skompiluj go, a następnie zaprogramuj moduł. Następnie otwórz monitor portu szeregowego taskiem readUSB. Twoim oczom powinien ukazać się komunikat "Systemy wbudowane i mikrokontrolery!".
+​	W module nRF52840 Dongle można przesyłać dane do komputera poprzez interfejs USB. Wykrywany jest on w systemie jako wirtualny port szeregowy. Otwórz projekt `lab2`, skompiluj go, a następnie zaprogramuj moduł. Następnie otwórz monitor portu szeregowego taskiem readUSB. Twoim oczom powinien ukazać się komunikat "Systemy wbudowane i mikrokontrolery!". **Po każdym uruchomieniu taska readUSB zamknij minicom wciskajac ctrl-a a następnie q**
 
 ​	Moduł nRF5840 Dongle posiada również wbudowany czujnik temperatury. W pliku `temperature.c` znajduje się funkcja `get_temperature()`, która służy do odczytu wartości temperatury. Korzystając z wiedzy zdobytej w poprzednim ćwiczeniu zmodyfikuj oprogramowanie w taki sposób, aby odczytująć regularnie wartość temperatury, zapalić diodę, jeśli wartość ta przekroczy wartość np. 25 °C. Wyślij również odpowiedni komunikat (np. "LED ON") poprzez USB.
 
