@@ -118,7 +118,7 @@
       {
         "label": "windows: BLEtest",
         "type": "shell",
-        "command": "ssh -p 120${config:group} ${config:userName}@153.19.49.102 -t && ssh -p 120${config:group} ${config:userName}@153.19.49.102 -t python3.7 /root/pmk/test_bluepy.py",
+        "command": "ssh -p 120${config:group} ${config:userName}@153.19.49.102 hciconfig hci0 down && ssh -p 120${config:group} ${config:userName}@153.19.49.102 hciconfig hci0 up && ssh -p 120${config:group} ${config:userName}@153.19.49.102 -t python3.7 /root/pmk/test_bluepy.py",
         "presentation":
         {
         "reveal": "always",
