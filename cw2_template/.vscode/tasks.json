@@ -28,7 +28,7 @@
       {
         "label": "flashNordic",
         "type": "shell",
-        "command": "scp -P 120${config:group} pca10059/s140/armgcc/_build/nrf52840_xxaa.hex ${config:userName}@153.19.49.102:/var/tmp && ssh -p 120${config:group} ${config:userName}@153.19.49.102 'curl http://153.19.49.102:3001/resetNRF52v2/${config:group} && sleep 3 && nrfutil pkg generate --hw-version 52 --sd-req 0x00 --debug-mode --application /var/tmp/nrf52840_xxaa.hex.hex /var/tmp/dfu.zip && nrfutil dfu usb-serial -pkg /var/tmp/dfu.zip -p /dev/ttyACM0 -b 115200 && rm /var/tmp/*.hex'",
+        "command": "scp -P 120${config:group} pca10059/s140/armgcc/_build/nrf52840_xxaa.hex ${config:userName}@153.19.49.102:/var/tmp && ssh -p 120${config:group} ${config:userName}@153.19.49.102 'curl http://153.19.49.102:3001/resetNRF52v2/${config:group} && sleep 3 && nrfutil pkg generate --hw-version 52 --sd-req 0x00 --debug-mode --application /var/tmp/nrf52840_xxaa.hex /var/tmp/dfu.zip && nrfutil dfu usb-serial -pkg /var/tmp/dfu.zip -p /dev/ttyACM0 -b 115200 && rm /var/tmp/*.hex'",
         "presentation": 
         {
           "reveal": "always",
