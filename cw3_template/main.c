@@ -60,7 +60,7 @@
 #include "nrf_drv_gpiote.h"
 
 // NOTE: uzupelnic odpowiednim pinem dla fototranzystora
-#define PIN_IN BSP_BUTTON_0
+#define PIN_IN 20
 
 extern char m_rx_buffer[READ_SIZE];
 extern char m_tx_buffer[NRF_DRV_USBD_EPSIZE];
