@@ -59,7 +59,6 @@
 // NOTE: lab3
 #include "nrf_drv_gpiote.h"
 
-// NOTE: uzupelnic odpowiednim pinem dla fototranzystora
 #define PIN_IN 20
 
 extern char m_rx_buffer[READ_SIZE];
