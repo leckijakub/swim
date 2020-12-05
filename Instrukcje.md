@@ -294,14 +294,63 @@ https://infocenter.nordicsemi.com/index.jsp?topic=%2Fsdk_nrf5_v16.0.0%2Fstructbl
 **UWAGA: Dla tego zadania użyj taska flashNordicSD**
  
 
+# Lab 5
+
+ 
+##Skan i połączenie
+ 
+ Za pomocą skanu urządzenie jest w stanie znaleźć lokalne beacony które rozgłaszają się przy pomocy advertisingu. Skanowanie i advertising są pierwszym krokiem ustanawiania połączenia. Skaner  jest w stanie filtrowac urządzenia po nazwie lub adresie MAC, dzięki czemu może wybrać odpowiednie urządzenie do ustanowienia połączenia.
+ Interakcja połączonych urządzeń opiera się głównie o warstwę GATT.
+
+## GATT  
+ 
+ Warstwa GATT (Generic Attribute Profile) definiuje wysokopoziomowy interfejs i framework do komunikacji urządzeń. Główną częścią interfejsu są serwisy, grupujące w sobie charakterystyki. Serwisy identyfikują się UUID, z czego część tych serwisów jest zdefiniowana odgórnie przez BLE SIG. Charakterystyka jest wydzielonym miejscem w pamięci urządzenia, do którego klienci mogę zdalnie pisać dane, lub je czytać. 
+ 
+ GATT definiuje dwie role. KAżde urzedzenie może implementować jedną z nich, lub obie:
+ 
+- Serwer: 
+Jest to zazwyczaj urządzenie wbudowane, np Beacon BLE.  Peryferia GAP są zazwyczaj serwerami GATT. Serwer jest urządzeniem, które udostępnia serwisy BLE. W pakietach advertisingu znajdują się UUID dostępnych serwisów z którymi można wchodzić w interakcje.
+- Klient: 
+Jest to zazwyczaj urządzenie sterujące np. smartfon. Centrale GAP są zazwyczaj klientami GATT. Klienci łączą się do serwerów by używać ich serwisów. Centrala jest w stanie znaleźć dostępne serwisy na peryferium za pomocą procesu nazwanego discovery.
  
  
  
+  <p align="center">
+  <img   src="./instrukcje_img/GattStructure.png" "Title" >
+</p>
+<p align="center">
+  *Rys. 7: Struktura profilu GATT*
+</p>
+
+
+Przykładem serwisu jest LED Button Service. Jest to prosty serwis pozwalający na przetestowanie komunikacji za pomocą przycisków i diod. Serwis przewiduje moduły zarówno dla centrali jak i peryferium. W przykładzie z NRFSDK centrala serwisu będzie skanować eter dopóki nie znajdzie peryferium o odpowiedniej nazwie po czym połączy się do niego.  Przyciśnięcie przycisku na centrali LBS zapali diodę na połączonym z nim zdalne peryferium.
+
+ img src: https://learn.adafruit.com/introduction-to-bluetooth-low-energy/gatt
+ Źródła:
+ https://learn.adafruit.com/introduction-to-bluetooth-low-energy/gatt
+ https://embeddedcentric.com/lesson-2-ble-profiles-services-characteristics-device-roles-and-network-topology/
+ 
+ 
+## Zadania 
+ 
+ Główną rolą advertisingu Beaconów BLE jest przedstawienie się drugemu rodzajowi urządzeń: centrali.   W folderze lab5 są kody na obydwa urządzenia, lecz będziemy pracować tylko nad centralą. 
+ 
+ Pierwszym zadaniem będzie zaimplementowanie skanowania w poszukiwaniu urządzeń przedstawiających się advertisingiem. W tym celu stanowisko posiada dodatkowe moduły, z wgranym załączonym kodem beacona. Celem jest znalezienie i wypisywanienie w konsoli(task readUSB) adresów mac z pakietów advertisingu wszystkich urządzeń o nazwie "NRF_LAB_5". Moduł skanu i filtr i są już zainicjalizowane, należy tylko odebrać odpowiedni event z modułu skanu. Adres należy wypisać do konsoli za pomocą formatu: `KIMIA_USB_PRINT("MAC:%02x%02x%02x%02x%02x%02x\r\n",mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);`. Z uzyskanych adresów należy wybrać jeden po uzgodnieniu z prowadzącym i przejść do części drugiej.
+ 
+ Drugim zadaniem będzie podłączenie się do wybranego urządzenia za pomocą znalezionego adresu i synchronizacja migania diod. Po ustanowieniu połączenia na obu modułach zapali się czerwona dioda.  Moduł skanu w SDKv16 pozwala na automatyczne łączenie się do modułów spełniających kryteria filtracji. Połączenie można więc zainicjować włączając automatyczne połączenie i dołączając dodatkowy filtr adresu. Są też inne możliwości ustanowienia połączenia, jednak ta jest najprostsza. 
+ 
+ Moduł centrali ma zainicjalizowany moduł klienta serwisu LED Button Service i połączy się z serwerem serwisu na Beaconie. Używając tego serwisu jesteśmy w stanie zmieniać stan diody na Beaconie zdalnie z naszej centrali. Celem jest by dioda `LEDBUTTON_LED` migała synchronicznie na obu modułach.
+ 
+ Wszystkie potrzebne informacje do wykonania zadań znajdują się w dokumentacji modułu skanu i modułu klienta LED Button Service, oraz plikach nagłowkowych ich bibliotek.
+ 
+**UWAGA: Dla tego zadania użyj taska flashNordicSD**
+ 
+ Dokumentacja:
+ https://infocenter.nordicsemi.com/index.jsp?topic=%2Fsdk_nrf5_v16.0.0%2Fgroup__ble__lbs__c.html
+ https://infocenter.nordicsemi.com/index.jsp?topic=%2Fsdk_nrf5_v16.0.0%2Fgroup__nrf__ble__scan.html
  
  
  
- 
- 
- 
+
  
  
