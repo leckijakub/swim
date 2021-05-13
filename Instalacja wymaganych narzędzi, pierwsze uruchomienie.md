@@ -97,7 +97,7 @@ Otwórz Visual Studio Code. Następnie wybierz File -> Open Folder i z pobranego
 
   
 
-Uwaga: jeśli sklonowałeś repozytorium do innego folderu niż `examples`, zmień ścieżkę `"nrf52SDKPath"` na ścieżkę, pod którą znajduje się folder SDK na twoim komputerze. 
+Uwaga: jeśli sklonowałeś repozytorium do innego folderu niż `examples`, zmień ścieżkę `"nrf52SDKPath"` na ścieżkę, pod którą znajduje się folder SDK na twoim komputerze. Podobnie trzeba zmienić SDK_ROOT w każdym pliku makefile.
 
 ##### Kompilacja i uruchomienie
 Przed rozpoczęciem wgrywania kodu na moduł ustaw zmienną "group" w settings.json na numer odpowiedni dla swojej grupy (od 01 do 10).
