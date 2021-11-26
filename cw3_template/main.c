@@ -48,25 +48,30 @@
 #include "nrf_gpio.h"
 #include "nrf_delay.h"
 #include "nrf_drv_power.h"
+#include "nrfx_saadc.h"
 
 #include "app_error.h"
 
 #include "boards.h"
 #include "bsp.h"
-#include "usb.h"
+
+#include "nrf_pwr_mgmt.h"
+#include "nrf_drv_saadc.h"
+
+
+
 #include "app_timer.h"
+#include "kimia_usb_log.h"
 
-// NOTE: lab3
-#include "nrf_drv_gpiote.h"
 
-#define PIN_IN 20
 
-extern char m_rx_buffer[READ_SIZE];
-extern char m_tx_buffer[NRF_DRV_USBD_EPSIZE];
-extern bool usb_ready;
-
-extern app_usbd_cdc_acm_t m_app_cdc_acm;
-
+static void idle_state_handle(void)
+{
+    if (kimia_usb_log_process() == false)
+    {
+        nrf_pwr_mgmt_run();
+    }
+}
 
 static void init_bsp(void)
 {
@@ -75,38 +80,32 @@ static void init_bsp(void)
     APP_ERROR_CHECK(ret);
 }
 
-static void usb_init(app_usbd_config_t usbd_config)
+
+
+
+
+void saadc_callback(nrf_drv_saadc_evt_t const * p_event)
 {
-    ret_code_t ret;
-    
-    app_usbd_serial_num_generate();
-
-    ret = app_usbd_init(&usbd_config);
-    APP_ERROR_CHECK(ret);
-
-    app_usbd_class_inst_t const * class_cdc_acm = app_usbd_cdc_acm_class_inst_get(&m_app_cdc_acm);
-    ret = app_usbd_class_append(class_cdc_acm);
-    APP_ERROR_CHECK(ret);
-
-    if (USBD_POWER_DETECTION)
-    {
-        ret = app_usbd_power_events_enable();
-        APP_ERROR_CHECK(ret);
-    }
-    else
-    {
-        app_usbd_enable();
-        app_usbd_start();
-    }
+    //empty callback
 }
+
+
+void saadc_init(void)
+{
+    ret_code_t err_code;
+
+    err_code = nrf_drv_saadc_init(NULL, saadc_callback);
+    APP_ERROR_CHECK(err_code);
+
+}
+
+
 
 
 int main(void)
 {
     ret_code_t ret;
-    static const app_usbd_config_t usbd_config = {
-        .ev_state_proc = usbd_user_ev_handler
-    };
+
 
     ret = nrf_drv_clock_init();
     APP_ERROR_CHECK(ret);
@@ -118,34 +117,16 @@ int main(void)
         /* Just waiting */
     }
 
-    ret = app_timer_init();
-    APP_ERROR_CHECK(ret);
-
-    usb_init(usbd_config);
+    kimia_usb_log_init();
     init_bsp();
+    saadc_init();
     
-    bsp_board_led_on(BSP_BOARD_LED_0);
+    KIMIA_USB_PRINT("LAB3."); //print do usb zadziała tylko po jakimś czasie, użyjcie tej funkcji w timerze
+    
 
-    bool msg_sent = 0;
-
-    while (true)
+    //Dont change this loop
+    for (;;)
     {
-
-        while (app_usbd_event_queue_process())
-        {
-            /* Nothing to do */
-        }
-
-        if (usb_ready && !msg_sent)
-        {
-            size_t size = sprintf(m_tx_buffer, "Systemy wbudowane i mikrokontrolery!\r\n");
-            app_usbd_cdc_acm_write(&m_app_cdc_acm, m_tx_buffer, size);
-            msg_sent = 1;
-        }
-
-        /* Sleep CPU only if there was no interrupt since last loop processing */
-        __WFE();
+         idle_state_handle();
     }
 }
-
-/** @} */

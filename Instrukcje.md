@@ -184,28 +184,29 @@ Tranzystory są elementami elektronicznymi które przewodzą prąd warunkowo. Wa
  
 Źródła:
 img: https://www.vhv.rs/viewpic/iJxRhbb_free-vector-electronic-phototransistor-pnp-circuit-phototransistor-symbol/ 
- 
- 
 
- 
- 
 
-## Zaawansowana obsługa GPIO 
+## Konwerter analogowo-cyfrowy 
+ W przypadku diody w lab1 API nrf52 zajęło się wszystkimi niskopoziomowymi problemami za nas, by zapalić diodę. Jeśli chcemy wysterować lub odczytać inny element musimy napisać sterownik samemu. Do tego możemy użyć znanego już GPIO lub ADC  (Analog-Digital Converter), korzystając z niskopoziomowego API tych modułów. 
+ 
+Konwerter ADC zamienia wartość analogową (napięcie) na wartość cyfrową (liczbę w pamięci).
 
- 
-W przypadku diody w lab1 API nrf52 zajęło się wszystkimi niskopoziomowymi problemami za nas, by zapalić diodę. Jeśli chcemy wysterować lub odczytać inny element musimy napisać sterownik samemu. Do tego możemy użyć znanego już GPIO lub ADC  (Analog-Digital Converter), korzystając z niskopoziomowego API tych modułów. 
+== TODO ==
 
-Podłączmy nasz fototranzystor podobnie jak diodę z lab1, lecz ustawmy GPIO w tryb wejścia. Wtedy zmiana stanu fototranzystora pod wpływem światła wznowi lub zatrzyma przepływ prądu. Jest do jednoznaczne z podłączeniem naszego pinu GPIO z napięciem 3.3V (gdy tranzystor przewodzi - tworzy połączenie między swoimi pinami), lub odłączeniem go od tego zasilania (gdy tranzystor nie przewodzi). Innymi słowy fototranzystor staje się swego rodzaju przełącznikiem. Za pomocą API GPIO jesteśmy w stanie odczytać wartość na pinie GPIO w naszej aplikacji jako jedynkę lub zero. 
- 
-Problem jaki się tu pojawia to jednowątkowość naszego mikrokontrolera. Odczyt wartości GPIO jest instrukcją, linią w kodzie, więc jeśli chcielibyśmy  wykonać jakąś operację gdy zmieni się wartość natężenia światła musielibyśmy czytać tą wartość w pętli i czekać aż się zmieni (polling). Pilnowanie tej wartości i robienie innych operacji nie wchodzi wtedy w grę. Na pomoc przychodzą nam przerwania - możemy ustawić je tak by zmiana wartości na pinie GPIO generowała przerwanie. Dzięki temu nasz program będzie mógł się zająć innymi operacjami podczas tego oczekiwania. 
- 
+
+
 ## Zadania 
- 
- ​	GPIO (General Purpose Input/Output) czyli wejścia/wyjścia ogólnego przeznaczenia, są to piny służace do komunikacji pomiędzy elementami systemu (np. między mikrokontrolerem a urządzeniami peryferyjnymi). Takie wyprowadzenia mogą pełnić rolę zarówno wejść jak i wyjść, i jest to zazwyczaj właściwość konfigurowalna. Ważną własnością urządzeń korzystających z interfejsu GPIO jest możliwość zgłaszania przerwań.
 
-​	Do naszego modułu nRF52840, a dokładniej do pinu P0.20 podłączony został fototranzystor. Fototranzystor to element optoelektroniczny, który pod wpływem światła zmienia napięcie na swoim wyjściu. Można zastosować go jako prosty detektor światła. 
 
-​	Korzystając z wiedzy zdobytej w poprzednich ćwiczeniach oraz dokumentacji https://infocenter.nordicsemi.com/topic/sdk_nrf5_v16.0.0/hardware_driver_gpiote.html stwórz prosty czujnik oświetlenia. Program powinien działać w taki sposób, aby po jego uruchomieniu zapaliła się dioda, natomiast po zapaleniu światła (korzystając z interfejsu webowego) dioda zgasła. Zainicjalizuj pin, do którego podłączony jest fototranzystor jako wejście, skonfiguruj w odpowiedni sposób przerwanie oraz napisz funkcję obsługującą to przerwanie. Dla parametru konfiguracyjnego `pull` ustaw wartość `NRF_GPIO_PIN_PULLUP` (tak jak w sekcji *Initialization* dokumentacji).
+	Głównym celem ćwiczenia jest napisanie prostego czujnika oświetlenia który zapala diodę 1 i 0 gdy światło jest zgaszone, i gasi diody gdy światło jest zapalone.
+	Do naszego modułu nRF52840, a dokładniej do pinu P0.02 podłączony został fototranzystor. Fototranzystor to element optoelektroniczny, który pod wpływem światła zmienia napięcie na swoim wyjściu. Można zastosować go jako prosty detektor światła. Pin P0.02 jest pinem z analogowym wejściem(AIN). We wprowadzeniu do Zad1 jest fragment pinoutu mikrokontrolera - sprawdź jaki numer wejścia analogowego ma ten pin.
+	Według dokumentacji uzupełnijcie inicjalizację SAADC tak by odbierać skwantyzowane próbki napięcia na pinie P0.02 i wysyłać tą wartość na USB. Niech timer odmierza kolejne próbki. Możecie przekształcić tą wartość na faktyczne napięcie w mV mnożąc ją : value*(3.3 + 0.3) * 1000)/1024)  [wyjaśnienie wzoru w dokumentacji]. Sprawdźcie jak zmienia się ta wartość gdy światło jest zapalone i zgaszone i na tej podstawie wybierzcie jakąś wartość graniczną. 
+	
+Dokumentacja:
+https://infocenter.nordicsemi.com/index.jsp?topic=%2Fsdk_nrf5_v16.0.0%2Fgroup__nrf__drv__saadc.html&anchor=ga4f67c6dad745133956b9ffc9df68d145
+https://infocenter.nordicsemi.com/index.jsp?topic=%2Fsdk_nrf5_v16.0.0%2Fgroup__nrfx__saadc.html&anchor=gab71a209892aedc84800887de200c5857
+
+	
 
 # Lab 4   
 
