@@ -209,7 +209,9 @@ Chcemy obliczać napięcie więc odwracamy:
 	V(P)= RESULT / (GAIN/REFERENCE) * 2(RESOLUTION - m) +V(N)
 
 Dla pomiaru nieróżnicowego napięcie negatywne N będzie ok. 0 .Domyślny gain to 1/6 , a REFERENCE to 0.6V, co daje nam efektywną referencję 3.6V. Ostatecznie dla domyślnej konfiguracji:
-	V(P)= 3.6V * RESULT / 1024
+
+    V(P)= 3.6V * RESULT / 1024
+	
 Czyli dokładnie jak wcześniej mówiliśmy, result jest stosunkiem miedzy referencją a wejściem ADC.
 
 
