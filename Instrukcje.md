@@ -189,18 +189,40 @@ img: https://www.vhv.rs/viewpic/iJxRhbb_free-vector-electronic-phototransistor-p
 ## Konwerter analogowo-cyfrowy 
  W przypadku diody w lab1 API nrf52 zajęło się wszystkimi niskopoziomowymi problemami za nas, by zapalić diodę. Jeśli chcemy wysterować lub odczytać inny element musimy napisać sterownik samemu. Do tego możemy użyć znanego już GPIO lub ADC  (Analog-Digital Converter), korzystając z niskopoziomowego API tych modułów. 
  
-Konwerter ADC zamienia wartość analogową (napięcie) na wartość cyfrową (liczbę w pamięci).
+ <p align="center">
+  <img   src="./instrukcje_img/adc.png" "Title" >
+</p>
+<p align="center">
+  *Rys. 6: Schemat SAADC*
+</p>
+ 
+Konwerter ADC zamienia wartość analogową (napięcie) na wartość cyfrową (liczbę w pamięci). Nrf52 posiada moduł SAADC czyli Successive approximation analog-to-digital converter. Konwerter ma 8 kanałów pojednczych, które można skonfigurować też jako 4 kanały różnicowe. Każdy kanał ma wejście dodatnie i ujemne. Dla zwykłego nieróżnicowego pomiaru kanał negatywny jest zwarty z masą, czyli ma zerowe napięcie. Do tego dla każdego kanału możemy wybrać osobne napięcia referencyjne, domyślnie jest to 0.6V. Napięcie referencyjne jest jednak zwiększane za pomocą opcji gain, domyślnie jest to 1/6 co zwiększa referencję 6ciokrotnie.
 
-== TODO ==
 
+
+Konwersja dla pomairu nieróżnicowego polega na porownaniu napięcia referencyjnego do wejścia P ADC. Różnica między tymi napięciami jest zapisana na X bitach gdzie X jest rozdzielczością ADC. Dla domyślnej rozdzielczości 10 bitów, result 0 oznacza zerowe napięcie, a result 1023 (10 bitów samych jedynek) oznacza napięcie referencyjne (3.6V).  Wartość wyjściową ADC możemy obliczyć wzorem z dokumentacji: 
+
+	RESULT = (V(P) – V(N)) * (GAIN/REFERENCE) * 2(RESOLUTION - m)
+	
+Chcemy obliczać napięcie więc odwracamy:
+
+	V(P)= RESULT / (GAIN/REFERENCE) * 2(RESOLUTION - m) +V(N)
+
+Dla pomiaru nieróżnicowego napięcie negatywne N będzie ok. 0 .Domyślny gain to 1/6 , a REFERENCE to 0.6V, co daje nam efektywną referencję 3.6V. Ostatecznie dla domyślnej konfiguracji:
+	V(P)= 3.6V * RESULT / 1024
+Czyli dokładnie jak wcześniej mówiliśmy, result jest stosunkiem miedzy referencją a wejściem ADC.
+
+
+Źróðło obrazka i wzoru:
+https://infocenter.nordicsemi.com/index.jsp?topic=%2Fps_nrf52840%2Fsaadc.html&cp=4_0_0_5_22
 
 
 ## Zadania 
 
 
-	Głównym celem ćwiczenia jest napisanie prostego czujnika oświetlenia który zapala diodę 1 i 0 gdy światło jest zgaszone, i gasi diody gdy światło jest zapalone.
-	Do naszego modułu nRF52840, a dokładniej do pinu P0.02 podłączony został fototranzystor. Fototranzystor to element optoelektroniczny, który pod wpływem światła zmienia napięcie na swoim wyjściu. Można zastosować go jako prosty detektor światła. Pin P0.02 jest pinem z analogowym wejściem(AIN). We wprowadzeniu do Zad1 jest fragment pinoutu mikrokontrolera - sprawdź jaki numer wejścia analogowego ma ten pin.
-	Według dokumentacji uzupełnijcie inicjalizację SAADC tak by odbierać skwantyzowane próbki napięcia na pinie P0.02 i wysyłać tą wartość na USB. Niech timer odmierza kolejne próbki. Możecie przekształcić tą wartość na faktyczne napięcie w mV mnożąc ją : value*(3.3 + 0.3) * 1000)/1024)  [wyjaśnienie wzoru w dokumentacji]. Sprawdźcie jak zmienia się ta wartość gdy światło jest zapalone i zgaszone i na tej podstawie wybierzcie jakąś wartość graniczną. 
+Głównym celem ćwiczenia jest napisanie prostego czujnika oświetlenia który zapala diodę 1 i 0 gdy światło jest zgaszone, i gasi diody gdy światło jest zapalone.
+Do naszego modułu nRF52840, a dokładniej do pinu P0.02 podłączony został fototranzystor. Fototranzystor to element optoelektroniczny, który pod wpływem światła zmienia napięcie na swoim wyjściu. Można zastosować go jako prosty detektor światła. Pin P0.02 jest pinem z analogowym wejściem(AIN). We wprowadzeniu do Zad1 jest fragment pinoutu mikrokontrolera - sprawdź jaki numer wejścia analogowego ma ten pin.
+Według dokumentacji uzupełnijcie inicjalizację SAADC tak by odbierać skwantyzowane próbki napięcia na pinie P0.02 i wysyłać tą wartość na USB. Niech timer odmierza kolejne próbki. Możecie przekształcić tą wartość na faktyczne napięcie w mV mnożąc ją: (result*(3.6 )/1024) * 1000. Sprawdźcie jak zmienia się ta wartość gdy światło jest zapalone i zgaszone i na tej podstawie wybierzcie jakąś wartość graniczną. 
 	
 Dokumentacja:
 https://infocenter.nordicsemi.com/index.jsp?topic=%2Fsdk_nrf5_v16.0.0%2Fgroup__nrf__drv__saadc.html&anchor=ga4f67c6dad745133956b9ffc9df68d145
@@ -222,7 +244,7 @@ Warto pamiętać, że wszystkie popularne standardy komunikacji bezprzewodowej (
   <img   src="./instrukcje_img/blestack.png" "Title" >
 </p>
 <p align="center">
-  *Rys. 6: Stos BLE. Zejdziemy najniżej do obsługi warstw GATT i GAP*
+  *Rys. 7: Stos BLE. Zejdziemy najniżej do obsługi warstw GATT i GAP*
 </p>
 
 Podobnie jak protokół TCP/IP, BLE ma swój własny stos (rys.). Pisząc aplikacje oparte na BLE będziemy operować na dwóch warstwach stosu BLE: GAP i GATT.  
@@ -320,7 +342,7 @@ Jest to zazwyczaj urządzenie sterujące np. smartfon. Centrale GAP są zazwycza
   <img   src="./instrukcje_img/GattStructure.png" "Title" >
 </p>
 <p align="center">
-  *Rys. 7: Struktura profilu GATT*
+  *Rys. 8: Struktura profilu GATT*
 </p>
 
 
