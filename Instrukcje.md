@@ -307,7 +307,7 @@ img: https://infocenter.nordicsemi.com/index.jsp?topic=%2Fsds_s140%2FSDS%2Fs1xx%
 
 ## Zadania 
 
-BLE jest popularnym standardem komunikacji bezprzewodowej. Najprostszym urządzeniem BLE jest Beacon wykonujący Advertising. Advertising jest sposobem urządzeń BLE na "przedstawienie" się nasłuchującym klientom. Projekt lab4 posiada już zaimplementowany advertising. Przetestuj go za pomocą aplikacji test.py którą znajdziesz bezpośrednio na urządzeniu zdalnym. Najłatwiej ją włączyć za pomocą  tasku BLEtest w VSCode.
+BLE jest popularnym standardem komunikacji bezprzewodowej. Najprostszym urządzeniem BLE jest Beacon wykonujący Advertising. Advertising jest sposobem urządzeń BLE na "przedstawienie" się nasłuchującym klientom. Projekt lab4 posiada już zaimplementowany advertising. "Secondary" Nordic zawiera skaner piszący na USB dzięki któremu możemy sprawdzić czy nasz advertising działa. By podpiąć się do niego używamy komendy readUsbSecondary. Nordic wyświetli wszystkie beacony które widzi.
 
 Advertising może być użyty również do przekazywania informacji. Ramka advertisingu posiada pole "manufacturer data", w którym można zawrzeć kilka bajtów informacji. Zawrzyj w tym polu wartość stanu czujnika oświetlenia (0 lub 1). Wartość ta ma się aktualizować za każdym razem gdy się zmieni się stan czujnika. W polu company_identifier wpisz 0x0059.
 

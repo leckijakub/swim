@@ -5,7 +5,9 @@
     "C_Cpp.clang_format_style": "file",
     "C_Cpp.clang_format_fallbackStyle": "none",
     "editor.rulers": [90],
-    "nrf52SDKPath": "${workspaceFolder}/../../../../",
+    "nrf52SDKPath": "${workspaceFolder}/../../../",
     "userName": "root",
-    "group": "08"
+    "group": "08",
+    "NrfMain" : "/dev/ttyACM0", 
+    "NrfSecondary" : "/dev/ttyACM1"
   }

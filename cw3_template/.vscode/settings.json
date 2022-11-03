@@ -7,9 +7,7 @@
     "editor.rulers": [90],
     "nrf52SDKPath": "${workspaceFolder}/../../../",
     "userName": "root",
-    "group": "07",
-    "files.associations": {
-      "kimia_usb_log.h": "c",
-      "nrfx_saadc.h": "c"
-    }
+    "group": "08",
+    "NrfMain" : "/dev/ttyACM0", 
+    "NrfSecondary" : "/dev/ttyACM1"
   }

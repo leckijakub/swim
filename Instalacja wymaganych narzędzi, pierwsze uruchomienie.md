@@ -101,6 +101,7 @@ Uwaga: jeśli sklonowałeś repozytorium do innego folderu niż `examples`, zmie
 
 ##### Kompilacja i uruchomienie
 Przed rozpoczęciem wgrywania kodu na moduł ustaw zmienną "group" w settings.json na numer odpowiedni dla swojej grupy (od 01 do 10).
+Na stanowisku są 2 beacony Nrf. Jeśli programowanie nie zadziała, porty mogą być zamienione. Aby to naprawić należy zamienić miejscami wartości "NrfMain" i "NrfSecondary".
 
 **Uwaga Windows**: konieczne jest używanie tasków z dopiskiem "windows: " oraz ustawienie domyślnego shella na cmd, tak jak na gifie poniżej:
 
