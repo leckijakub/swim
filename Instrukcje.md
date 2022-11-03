@@ -227,8 +227,9 @@ Do naszego modułu nRF52840, a dokładniej do pinu P0.02 podłączony został fo
 Według dokumentacji uzupełnijcie inicjalizację SAADC tak by odbierać skwantyzowane próbki napięcia na pinie P0.02 i wysyłać tą wartość na USB. Niech timer odmierza kolejne próbki. Możecie przekształcić tą wartość na faktyczne napięcie w mV mnożąc ją: (result*(3.6 )/1024) * 1000. Sprawdźcie jak zmienia się ta wartość gdy światło jest zapalone i zgaszone i na tej podstawie wybierzcie jakąś wartość graniczną. 
 	
 Dokumentacja:
-https://infocenter.nordicsemi.com/index.jsp?topic=%2Fsdk_nrf5_v16.0.0%2Fgroup__nrf__drv__saadc.html&anchor=ga4f67c6dad745133956b9ffc9df68d145
+https://infocenter.nordicsemi.com/index.jsp?topic=%2Fsdk_nrf5_v16.0.0%2Fgroup__nrfx__saadc.html&cp=8_5_1_6_9_0_30_1_21&anchor=gab71a209892aedc84800887de200c5857
 https://infocenter.nordicsemi.com/index.jsp?topic=%2Fsdk_nrf5_v16.0.0%2Fgroup__nrfx__saadc.html&anchor=gab71a209892aedc84800887de200c5857
+https://infocenter.nordicsemi.com/index.jsp?topic=%2Fsdk_nrf5_v16.0.0%2Fhardware_driver_saadc.html&cp=8_5_1_2_0_12
 
 	
 
