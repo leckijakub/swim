@@ -1,0 +1,7 @@
+{
+	"name": "SWIM container",
+	"build": { "dockerfile": "Dockerfile" },
+	"workspaceMount": "source=${localWorkspaceFolder}/..,target=/root/nrf5_sdk/examples/laboratorium_swim,type=bind,consistency=cached",
+	"workspaceFolder": "/root/nrf5_sdk/examples/laboratorium_swim/${localWorkspaceFolderBasename}",
+	"postAttachCommand": "${containerWorkspaceFolder}/.devcontainer/scripts/update_cross_compiler_path.py /usr/bin/arm-none-eabi-gcc"
+}

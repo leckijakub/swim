@@ -1,5 +1,9 @@
 # Instalacja wymaganych narzędzi
 
+Każde z ćwiczeń może zostać uruchomione w kontenerze docker posiadającym
+zainstalowane wszystkie wymagane narzędzia. Po więcej informacji patrz:
+[Środowisko skonteneryzowane](#środowisko-skonteneryzowane)
+
 ## Windows
 
 ### Kompilator arm-gcc
@@ -10,7 +14,7 @@ Rekomendowanym kompilatorem jest gcc-arm-none-eabi, version 7-2018-q2-update, do
 C:\Program Files (x86)\GNU Tools Arm Embedded\7 2018-q2-update\bin
 ```
 
-Sprawdź czy ten folder dodany jest ścieżki wyszukiwania otwierając wiersz polecenia i wpisując komendę: 
+Sprawdź czy ten folder dodany jest ścieżki wyszukiwania otwierając wiersz polecenia i wpisując komendę:
 
 ```
 arm-none-eabi-gcc  -v
@@ -66,7 +70,7 @@ unzip nRF5SDK160098a08e2.zip -d ~/nrf5_sdk/
 64bit package for Ubuntu do pobrania [tutaj](https://go.microsoft.com/fwlink/?LinkID=760868). Instalacja poleceniem poniżej. Więcej opcji [tutaj](https://code.visualstudio.com/docs/setup/linux).
 
 ```
-sudo apt install ./code_1.45.1-1589445302_amd64.deb 
+sudo apt install ./code_1.45.1-1589445302_amd64.deb
 ```
 
 
@@ -95,7 +99,7 @@ Otwórz Visual Studio Code. Następnie wybierz File -> Open Folder i z pobranego
   "armCompilerPath": "/usr/bin/arm-none-eabi-gcc"
   ```
 
-  
+
 
 Uwaga: jeśli sklonowałeś repozytorium do innego folderu niż `examples`, zmień ścieżkę `"nrf52SDKPath"` na ścieżkę, pod którą znajduje się folder SDK na twoim komputerze. Podobnie trzeba zmienić SDK_ROOT w każdym pliku makefile.
 
@@ -107,7 +111,7 @@ Na stanowisku są 2 beacony Nrf. Jeśli programowanie nie zadziała, porty mogą
 
 ![Shell change](instrukcje_img/shell_change.gif "Zmiana domyslnego shella")
 
-Aby skompilować kod z menu wybierz Terminal -> Run Task, a następnie wybierz `make (pca10059)` i `Continue without scanning the task output`. 
+Aby skompilować kod z menu wybierz Terminal -> Run Task, a następnie wybierz `make (pca10059)` i `Continue without scanning the task output`.
 
 ![Kompilacja](instrukcje_img/kompilacja.gif "Kompilacja")
 
@@ -117,3 +121,45 @@ Aby wgrać skompilowany program na moduł wybierz task `flashNordic`. Wpisz has�
 
 ![Programowanie](instrukcje_img/programowanie.gif "Programowanie")
 
+## Środowisko skonteneryzowane
+
+Każde z ćwiczeń może zostać uruchomione w kontenerze docker posiadającym
+zainstalowane wszystkie wymagane narzędzia.
+
+1. Pobierz repozytorium laboratorium_swim:
+
+  ```bash
+  git clone https://git.pg.edu.pl/p828385/laboratorium_swim/
+  ```
+
+2. Otwórz jedno z ćwiczeń w vscode:
+
+  ```bash
+  code laboratorium_swim/cw1_template/
+  ```
+
+3. Zainstaluj rozszerzenie `Remote-container extension`
+
+4. uruchom ćwiczenie w kontenerze
+   1. W palecie komend (F1) Uruchom `Dev Containers: Reopen in Container`
+
+5. Ćwiczenie jest gotowe do działania, przetestuj poprzez kompilacje obecnego kodu
+   1. Terminal -> Run Task -> `Linux: make (pca10059)`
+
+> Otwarcie projektu w kontenerze skutkuje nadpisaniem zmiennej
+> `"armCompilerPath"` w pliku `.vscode/c_cpp_properties.json` na
+> `"/usr/bin/arm-none-eabi-gcc"` w celu poprawnego działania w środowisku
+> skonteneryzowanem.
+
+Opcjonalne: Folder ćwiczenia może zostać otwarty w kontenerze bezpośrednio z
+konsoli:
+
+1. Po zainstalowaniu rozszerzenia `Remote-container extension` zaistaluj `devcontainer cli`
+   1. W palecie komend (F1) Uruchom `Dev Containers: Install devcontainer CLI`
+   2. Upewnij się że zainstalowany program znajduje się w `PATH`
+
+2. Uruchom ćwiczenie w kontenerze:
+
+  ```bash
+  devcontainer open laboratorium_swim/cw1_template/
+  ```
